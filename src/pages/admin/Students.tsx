@@ -30,8 +30,9 @@ import {
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useToast } from '@/hooks/use-toast';
-import { Plus, Pencil, Trash2, Users, Search } from 'lucide-react';
+import { Plus, Pencil, Trash2, Users, Search, Zap } from 'lucide-react';
 import { SchoolStudent, CollegeStudent } from '@/types';
+import { generate1000SchoolStudents, logGenerationStats } from '@/lib/demoDataGenerator';
 
 const departments = ['CSE', 'ECE', 'MECH', 'CIVIL', 'IT', 'EEE', 'AIDS'] as const;
 const standards = Array.from({ length: 12 }, (_, i) => i + 1);
@@ -240,6 +241,43 @@ const Students = () => {
     });
   };
 
+  const generateOptimized1000Students = () => {
+    const schoolInstitutions = institutions.filter((i) => i.type === 'school');
+    
+    if (schoolInstitutions.length === 0) {
+      toast({
+        title: 'No Schools',
+        description: 'Please add at least one school institution first.',
+        variant: 'destructive',
+      });
+      return;
+    }
+
+    try {
+      // Use the optimized generator
+      const targetInstitution = schoolInstitutions[0].id;
+      const generatedStudents = generate1000SchoolStudents(targetInstitution);
+      
+      // Log statistics to console for monitoring
+      logGenerationStats(generatedStudents);
+      
+      // Add to store
+      addStudents(generatedStudents);
+      
+      toast({
+        title: '✅ 1000 Students Generated',
+        description: 'Generated 1000 realistic school students with balanced distribution across all standards and sections. Check console for statistics.',
+      });
+    } catch (error) {
+      console.error('Error generating students:', error);
+      toast({
+        title: 'Generation Error',
+        description: 'Failed to generate students. Check console for details.',
+        variant: 'destructive',
+      });
+    }
+  };
+
   const getInstitutionName = (id: string) => {
     return institutions.find((i) => i.id === id)?.name || 'Unknown';
   };
@@ -255,12 +293,20 @@ const Students = () => {
           </p>
         </div>
         
-        <div className="flex gap-2">
+        <div className="flex gap-2 flex-wrap">
+          <Button 
+            variant="default" 
+            onClick={generateOptimized1000Students}
+            className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700"
+          >
+            <Zap className="mr-2 h-4 w-4" />
+            Generate 1000 Students
+          </Button>
           <Button variant="outline" onClick={generateSchoolStudents}>
-            Generate 100 School Students
+            Generate 100 Students
           </Button>
           <Button variant="outline" onClick={generateDemoStudents}>
-            Generate 1000 Demo Students
+            Mixed Demo (1000)
           </Button>
           <Dialog open={isOpen} onOpenChange={(open) => {
             setIsOpen(open);
