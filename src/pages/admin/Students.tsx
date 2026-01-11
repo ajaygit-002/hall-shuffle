@@ -31,7 +31,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useToast } from '@/hooks/use-toast';
 import { Plus, Pencil, Trash2, Users, Search, Zap } from 'lucide-react';
-import { SchoolStudent, CollegeStudent } from '@/types';
+import { SchoolStudent, CollegeStudent, Institution, Student } from '@/types';
 import { generate1000SchoolStudents, logGenerationStats } from '@/lib/demoDataGenerator';
 
 const departments = ['CSE', 'ECE', 'MECH', 'CIVIL', 'IT', 'EEE', 'AIDS'] as const;
@@ -39,8 +39,47 @@ const standards = Array.from({ length: 12 }, (_, i) => i + 1);
 const sections = ['A', 'B', 'C', 'D', 'E'];
 const years = [1, 2, 3, 4] as const;
 
+// School name formats
+const schoolNameFormats = [
+  { prefix: 'St. Mary\'s', suffix: 'High School' },
+  { prefix: 'Sacred Heart', suffix: 'English School' },
+  { prefix: 'National', suffix: 'Public School' },
+  { prefix: 'Delhi', suffix: 'Public School' },
+  { prefix: 'Kendriya Vidyalaya', suffix: '' },
+  { prefix: 'Jawahar Navodaya Vidyalaya', suffix: '' },
+  { prefix: 'Ryan International', suffix: 'School' },
+  { prefix: 'DAV', suffix: 'Public School' },
+  { prefix: 'Modern', suffix: 'High School' },
+  { prefix: 'Vidya Mandir', suffix: 'Senior Secondary School' },
+  { prefix: 'Cambridge', suffix: 'International School' },
+  { prefix: 'Mount Carmel', suffix: 'School' },
+  { prefix: 'Bishop Cotton', suffix: 'School' },
+  { prefix: 'Loyola', suffix: 'High School' },
+  { prefix: 'Springfield', suffix: 'Public School' },
+];
+
+const collegeNameFormats = [
+  'Engineering College',
+  'Institute of Technology',
+  'College of Engineering',
+  'Technical Institute',
+  'Polytechnic College',
+];
+
+const generateSchoolName = (): string => {
+  const format = schoolNameFormats[Math.floor(Math.random() * schoolNameFormats.length)];
+  return format.suffix ? `${format.prefix} ${format.suffix}` : format.prefix;
+};
+
+const generateCollegeName = (): string => {
+  const cities = ['National', 'Government', 'Regional', 'State', 'Dr. Ambedkar', 'Jawaharlal Nehru'];
+  const city = cities[Math.floor(Math.random() * cities.length)];
+  const type = collegeNameFormats[Math.floor(Math.random() * collegeNameFormats.length)];
+  return `${city} ${type}`;
+};
+
 const Students = () => {
-  const { students, institutions, addStudent, addStudents, updateStudent, deleteStudent } = useDataStore();
+  const { students, institutions, addStudent, addStudents, updateStudent, deleteStudent, addInstitution } = useDataStore();
   const { toast } = useToast();
   
   const [isOpen, setIsOpen] = useState(false);
@@ -130,16 +169,44 @@ const Students = () => {
   };
 
   const generateDemoStudents = () => {
+    let schoolInstitutions = institutions.filter((i) => i.type === 'school');
+    
+    // Auto-create default institutions if none exist
     if (institutions.length === 0) {
+      const defaultSchool: Institution = {
+        id: `inst-school-${Date.now()}`,
+        name: generateSchoolName(),
+        type: 'school',
+        address: '123 Education Street, Demo City',
+        createdAt: new Date(),
+      };
+      const defaultCollege: Institution = {
+        id: `inst-college-${Date.now()}`,
+        name: generateCollegeName(),
+        type: 'college',
+        address: '456 College Road, Demo City',
+        createdAt: new Date(),
+      };
+      addInstitution(defaultSchool);
+      addInstitution(defaultCollege);
+      schoolInstitutions = [defaultSchool];
+      
       toast({
-        title: 'No Institutions',
-        description: 'Please add at least one institution first.',
-        variant: 'destructive',
+        title: 'Institutions Created',
+        description: 'Created default school and college institutions for demo data.',
       });
-      return;
+    } else if (schoolInstitutions.length === 0) {
+      const defaultSchool: Institution = {
+        id: `inst-${Date.now()}`,
+        name: generateSchoolName(),
+        type: 'school',
+        address: '123 Education Street, Demo City',
+        createdAt: new Date(),
+      };
+      addInstitution(defaultSchool);
+      schoolInstitutions = [defaultSchool];
     }
 
-    const schoolInstitutions = institutions.filter((i) => i.type === 'school');
     const collegeInstitutions = institutions.filter((i) => i.type === 'college');
     const demoStudents: Student[] = [];
 
@@ -204,15 +271,19 @@ const Students = () => {
   };
 
   const generateSchoolStudents = () => {
-    const schoolInstitutions = institutions.filter((i) => i.type === 'school');
+    let schoolInstitutions = institutions.filter((i) => i.type === 'school');
     
+    // Auto-create a default school if none exists
     if (schoolInstitutions.length === 0) {
-      toast({
-        title: 'No Schools',
-        description: 'Please add at least one school institution first.',
-        variant: 'destructive',
-      });
-      return;
+      const defaultSchool: Institution = {
+        id: `inst-${Date.now()}`,
+        name: generateSchoolName(),
+        type: 'school',
+        address: '123 Education Street, Demo City',
+        createdAt: new Date(),
+      };
+      addInstitution(defaultSchool);
+      schoolInstitutions = [defaultSchool];
     }
 
     const schoolStudents: SchoolStudent[] = [];
@@ -242,15 +313,24 @@ const Students = () => {
   };
 
   const generateOptimized1000Students = () => {
-    const schoolInstitutions = institutions.filter((i) => i.type === 'school');
+    let schoolInstitutions = institutions.filter((i) => i.type === 'school');
     
+    // Auto-create a default school if none exists
     if (schoolInstitutions.length === 0) {
+      const defaultSchool: Institution = {
+        id: `inst-${Date.now()}`,
+        name: generateSchoolName(),
+        type: 'school',
+        address: '123 Education Street, Demo City',
+        createdAt: new Date(),
+      };
+      addInstitution(defaultSchool);
+      schoolInstitutions = [defaultSchool];
+      
       toast({
-        title: 'No Schools',
-        description: 'Please add at least one school institution first.',
-        variant: 'destructive',
+        title: 'Institution Created',
+        description: 'Created a default school institution for demo data.',
       });
-      return;
     }
 
     try {
