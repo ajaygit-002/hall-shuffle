@@ -533,6 +533,58 @@ const Students = () => {
         </div>
       </div>
 
+      {/* Statistics Overview */}
+      {students.length > 0 && (
+        <Card className="border-primary/20 bg-gradient-to-br from-primary/5 via-transparent to-transparent">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <Users className="h-5 w-5" />
+              Student Distribution Overview
+            </CardTitle>
+            <CardDescription>Current enrollment statistics across all standards</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
+              {/* Standard Distribution */}
+              {standards.map((std) => {
+                const stdCount = schoolStudents.filter((s) => s.standard === std).length;
+                return (
+                  <div key={std} className="rounded-lg border border-primary/20 bg-white p-3 text-center dark:bg-slate-900">
+                    <div className="text-xs font-semibold text-muted-foreground">Std {std}</div>
+                    <div className="mt-1 text-lg font-bold text-primary">{stdCount}</div>
+                    <div className="text-xs text-muted-foreground">
+                      {stdCount > 0 ? `${Math.round((stdCount / schoolStudents.length) * 100)}%` : '0%'}
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+            {schoolStudents.length > 0 && (
+              <div className="mt-4 border-t pt-4">
+                <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
+                  <div className="text-center">
+                    <div className="text-sm text-muted-foreground">Total School</div>
+                    <div className="text-2xl font-bold text-primary">{schoolStudents.length}</div>
+                  </div>
+                  <div className="text-center">
+                    <div className="text-sm text-muted-foreground">Total College</div>
+                    <div className="text-2xl font-bold text-accent">{collegeStudents.length}</div>
+                  </div>
+                  <div className="text-center">
+                    <div className="text-sm text-muted-foreground">Total Students</div>
+                    <div className="text-2xl font-bold">{students.length}</div>
+                  </div>
+                  <div className="text-center">
+                    <div className="text-sm text-muted-foreground">Sections</div>
+                    <div className="text-2xl font-bold">{sections.length}</div>
+                  </div>
+                </div>
+              </div>
+            )}
+          </CardContent>
+        </Card>
+      )}
+
       {/* Search & Stats */}
       <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
         <div className="relative max-w-sm">

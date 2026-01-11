@@ -1,0 +1,180 @@
+{
+  "metadata": {
+    "version": "1.0",
+    "totalStudents": 1000,
+    "standards": 12,
+    "sections": ["A", "B", "C", "D", "E"],
+    "createdAt": "2026-01-11",
+    "description": "Sample student data for Hall Shuffle Buddy system - 1000 students across standards 1-12"
+  },
+  "students": [
+    {
+      "id": "sch-std01-001",
+      "name": "Aarav Agarwal",
+      "rollNumber": "ROLL00001",
+      "standard": 1,
+      "section": "A",
+      "institutionId": "inst-001"
+    },
+    {
+      "id": "sch-std01-002",
+      "name": "Aditya Aggarwal",
+      "rollNumber": "ROLL00002",
+      "standard": 1,
+      "section": "B",
+      "institutionId": "inst-001"
+    },
+    {
+      "id": "sch-std01-003",
+      "name": "Ajay Ahuja",
+      "rollNumber": "ROLL00003",
+      "standard": 1,
+      "section": "C",
+      "institutionId": "inst-001"
+    },
+    {
+      "id": "sch-std01-004",
+      "name": "Akshay Aiyar",
+      "rollNumber": "ROLL00004",
+      "standard": 1,
+      "section": "D",
+      "institutionId": "inst-001"
+    },
+    {
+      "id": "sch-std01-005",
+      "name": "Amit Bajaj",
+      "rollNumber": "ROLL00005",
+      "standard": 1,
+      "section": "E",
+      "institutionId": "inst-001"
+    },
+    {
+      "id": "sch-std01-006",
+      "name": "Anand Bansal",
+      "rollNumber": "ROLL00006",
+      "standard": 1,
+      "section": "A",
+      "institutionId": "inst-001"
+    },
+    {
+      "id": "sch-std01-007",
+      "name": "Aniket Barge",
+      "rollNumber": "ROLL00007",
+      "standard": 1,
+      "section": "B",
+      "institutionId": "inst-001"
+    },
+    {
+      "id": "sch-std01-008",
+      "name": "Anilkumar Bhalla",
+      "rollNumber": "ROLL00008",
+      "standard": 1,
+      "section": "C",
+      "institutionId": "inst-001"
+    },
+    {
+      "id": "sch-std01-009",
+      "name": "Anmol Bhatnagar",
+      "rollNumber": "ROLL00009",
+      "standard": 1,
+      "section": "D",
+      "institutionId": "inst-001"
+    },
+    {
+      "id": "sch-std01-010",
+      "name": "Anshuman Bhatt",
+      "rollNumber": "ROLL00010",
+      "standard": 1,
+      "section": "E",
+      "institutionId": "inst-001"
+    },
+    {
+      "id": "sch-std02-011",
+      "name": "Arjun Chakraborty",
+      "rollNumber": "ROLL00011",
+      "standard": 2,
+      "section": "A",
+      "institutionId": "inst-001"
+    },
+    {
+      "id": "sch-std02-012",
+      "name": "Aryan Chakravarti",
+      "rollNumber": "ROLL00012",
+      "standard": 2,
+      "section": "B",
+      "institutionId": "inst-001"
+    },
+    {
+      "id": "sch-std02-013",
+      "name": "Ashish Chandra",
+      "rollNumber": "ROLL00013",
+      "standard": 2,
+      "section": "C",
+      "institutionId": "inst-001"
+    },
+    {
+      "id": "sch-std02-014",
+      "name": "Ashok Chandrasekaran",
+      "rollNumber": "ROLL00014",
+      "standard": 2,
+      "section": "D",
+      "institutionId": "inst-001"
+    },
+    {
+      "id": "sch-std02-015",
+      "name": "Avin Chatterjee",
+      "rollNumber": "ROLL00015",
+      "standard": 2,
+      "section": "E",
+      "institutionId": "inst-001"
+    },
+    {
+      "id": "sch-std03-016",
+      "name": "Avinash Chaturvedi",
+      "rollNumber": "ROLL00016",
+      "standard": 3,
+      "section": "A",
+      "institutionId": "inst-001"
+    },
+    {
+      "id": "sch-std03-017",
+      "name": "Aviral Chauhan",
+      "rollNumber": "ROLL00017",
+      "standard": 3,
+      "section": "B",
+      "institutionId": "inst-001"
+    },
+    {
+      "id": "sch-std03-018",
+      "name": "Ayush Choudhary",
+      "rollNumber": "ROLL00018",
+      "standard": 3,
+      "section": "C",
+      "institutionId": "inst-001"
+    },
+    {
+      "id": "sch-std03-019",
+      "name": "Bharat Chowdhury",
+      "rollNumber": "ROLL00019",
+      "standard": 3,
+      "section": "D",
+      "institutionId": "inst-001"
+    },
+    {
+      "id": "sch-std03-020",
+      "name": "Bhavesh Chopra",
+      "rollNumber": "ROLL00020",
+      "standard": 3,
+      "section": "E",
+      "institutionId": "inst-001"
+    }
+  ],
+  "summary": {
+    "instructions": "This is a sample dataset. To use with the system:",
+    "step1": "The actual system has 1000+ unique students generated automatically",
+    "step2": "Use the 'Generate 1000 Students' button in Admin > Students page",
+    "step3": "This JSON shows the structure of the student data",
+    "step4": "Each student has: id, name, rollNumber, standard (1-12), section (A-E), institutionId",
+    "note": "For full 1000 student dataset, use the automated generator in the UI"
+  }
+}
